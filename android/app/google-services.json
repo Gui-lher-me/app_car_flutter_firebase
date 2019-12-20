@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "399581997703",
+    "firebase_url": "https://app-car-2e7ba.firebaseio.com",
+    "project_id": "app-car-2e7ba",
+    "storage_bucket": "app-car-2e7ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399581997703:android:817b8f0dde8489bf9ba622",
+        "android_client_info": {
+          "package_name": "com.example.app_car"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399581997703-pgj9q15dcckguf93qrelu350h51okdch.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9WOMLRzmMiebB5HdV-YD8Qr0jj6e6JDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399581997703-pgj9q15dcckguf93qrelu350h51okdch.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
