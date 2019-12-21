@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                   Color color = Colors.white;
                   if ( snapshot.hasData ) {
                     List<Widget> ultimosItinerarios = [];
-                    for (var doc in snapshot.data.documents) {
+                    for (var doc in snapshot.data.documents) { 
                       ultimosItinerarios.add(
                         Card(
                           color: Theme.of(context).primaryColor,
@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                             leading: Icon(Icons.directions_car, color: color,),
                             title: Text('${doc.data['horario_inicio']}', style: TextStyle(color: color)),
                             subtitle: Text(
-                              'destino: ${doc.data['destino']}\nveículo: ${doc.data['veiculo_nome']}',
+                              'destino: ${doc.data['destino']}\nveículo: ${doc.data['veiculo_nome']}\nkms rodados: ${doc.data['km_rodados']}',
                               style: TextStyle(color: color)
                             ),
                             trailing: Icon(Icons.drag_handle, color: color,),
@@ -150,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                     return Column(
                       children: ultimosItinerarios
                     );
-                  }
+                  }else { print('Sem registros recentes...'); }
                   return Center(
                     child: Text('Sem registros recentes...', style: TextStyle(fontSize: 24.0)),
                   );

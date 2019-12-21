@@ -15,6 +15,8 @@ class ItineraryPage extends StatefulWidget {
 
 class _ItineraryPageState extends State<ItineraryPage> {
 
+  Database database = Database();
+
   String currentDocID;
 
   final _formKey = GlobalKey<FormState>();
@@ -115,7 +117,6 @@ class _ItineraryPageState extends State<ItineraryPage> {
                         MyCustomButton(
                           onPressed: ()async {
                             if (_formKey.currentState.validate()) {
-                              Database database = Database();
                               currentDocID = await database.insertData(
                                 nome.text,
                                 veiculoPlaca.text,
@@ -155,7 +156,6 @@ class _ItineraryPageState extends State<ItineraryPage> {
                         MyCustomButton(
                           onPressed: () {
                             if(_formKey2.currentState.validate()) {
-                              Database database = Database();
                               database.updateData(kmFim.text, currentDocID ?? widget.docIncomplete);
                               Navigator.pop(context);
                             }

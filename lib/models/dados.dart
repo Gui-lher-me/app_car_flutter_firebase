@@ -9,49 +9,28 @@ class Dados {
 
   Dados();
 
-  String get nome => _nome;
-
-  set nome(String v) {
-    if (v.length > 8) {
-      print('test');
-    }else { print('test2'); }
-    this._nome = v;
-  }
+  String get getNome => _nome;
+  set setNome(String v) => this._nome = v;
 
 
-  String get veiculoPlaca => _veiculoPlaca;
-
-  set veiculoPlaca(String v) {
-    this._veiculoPlaca = v;
-  }
+  String get getVeiculoPlaca => _veiculoPlaca;
+  set setVeiculoPlaca(String v) => this._veiculoPlaca = v;
 
 
-  String get veiculoNome => _veiculoNome;
-
-  set veiculoNome(String v) {
-    this._veiculoNome = v;
-  }
+  String get getVeiculoNome => _veiculoNome;
+  set setVeiculoNome(String v) => this._veiculoNome = v;
 
 
-  String get kmFim => _kmFim;
-
-  set kmFim(String v) {
-    this._kmFim = v;
-  }
+  String get getKmFim => _kmFim;
+  set setKmFim(String v) => this._kmFim = v;
 
 
-  String get kmInicio => _kmInicio;
-
-  set kmInicio(String v) {
-    this._kmInicio = v;
-  }
+  String get getKmInicio => _kmInicio;
+  set setKmInicio(String v) => this._kmInicio = v;
 
 
-  String get destino => _destino;
-
-  set destino(String v) {
-    this._destino = v;
-  }
+  String get getDestino => _destino;
+  set setDestino(String v) => this._destino = v;
 
 
 }
