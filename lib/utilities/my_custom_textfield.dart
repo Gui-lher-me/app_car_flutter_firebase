@@ -26,14 +26,14 @@ class MyCustomTextField extends StatelessWidget {
       controller: controller,
       autofocus: autofocus,
       keyboardType: keyboardType,
-      style: TextStyle(fontSize: 20.0,),
+      style: TextStyle(fontSize: 20.0),
       decoration: InputDecoration(
         contentPadding: EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 16.0),
         hintText: hintText,
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(6.0)
+          borderRadius: BorderRadius.circular(6.0),
         )
       )
     );

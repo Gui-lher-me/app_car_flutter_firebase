@@ -17,8 +17,8 @@ class _LoginPageState extends State<LoginPage> {
 
   Auth auth = Auth();
 
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _emailController = TextEditingController(text: 'test@test.com');
+  TextEditingController _passwordController = TextEditingController(text: '123456');
 
   bool _loading = false;
 
@@ -51,13 +51,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       key: scaffoldKey,
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Theme.of(context).primaryColor, Colors.white],
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight
-          )
-        ),
+        color: Colors.white,
         padding: EdgeInsets.all(16.0),
         child: Center(
           child: SingleChildScrollView(
@@ -67,13 +61,28 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(bottom: 32.0),
+                    padding: EdgeInsets.only(bottom: 12.0),
                     child: Image.asset(
-                      'assets/images/logo.png',
+                      'assets/images/Aztek2.jpeg',
                       width: 200.0,
                       height: 150.0,
                     ),
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Aztek'.toUpperCase(),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24.0,
+                          color: Color(0xff006680),
+                          letterSpacing: 2.0
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 18.0),
                   MyCustomTextField(
                     validator: (String v) {
                       if (v.isEmpty) {
@@ -97,6 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                     obscureText: true,
                   ),
                   MyCustomButton(
+                    fontSize: 20.0,
                     onPressed: ()async {
                       if(_formKey.currentState.validate()) {
                         try {

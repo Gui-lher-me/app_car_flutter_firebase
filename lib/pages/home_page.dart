@@ -17,6 +17,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  Color color = Colors.white;
+
   Database database = Database();
 
   Auth auth = Auth();
@@ -28,7 +30,7 @@ class _HomePageState extends State<HomePage> {
       auth.getcurrentUserEmail().then((v){
         setState(() {
           userEmail = v;
-          print(userEmail);
+          // print(userEmail);
         });
       });
     }catch(e) { debugPrint('Some error'); }
@@ -40,6 +42,39 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  _showDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button for close dialog!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Deseja sair do app?'),
+          content: const Text('Certeza?'),
+          actions: <Widget>[
+            FlatButton(
+              child: const Text('Não'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            FlatButton(
+              child: const Text('Sim'),
+              onPressed: () {
+                auth.logOut();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginPage()
+                  )
+                );
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,25 +82,20 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           children: <Widget>[
             Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Theme.of(context).primaryColor, Colors.white],
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight
-                )
-              ),
+              color: Color(0xff006680),
               child: DrawerHeader(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
-                    Icon(Icons.person, size: 40.0),
+                    Icon(Icons.person, size: 40.0, color: Color(0xffffdd55)),
                     Container(
                       padding: EdgeInsets.only(bottom: 10.0),
                       margin: EdgeInsets.only(left: 10.0),
                       child: Text(
                         userEmail ?? 'carregando...',
                         style: TextStyle(
-                          fontSize: 16.0
+                          fontSize: 16.0,
+                          color: Color(0xffffdd55)
                         ),
                       ),
                     ),
@@ -77,26 +107,22 @@ class _HomePageState extends State<HomePage> {
               leading: Icon(Icons.exit_to_app),
               title: Text('Sair...'),
               onTap: () {
-                auth.logOut();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LoginPage()
-                  )
-                );
+                _showDialog(context);
               },
             ),
           ],
         ),
       ),
       appBar: AppBar(
-        title: Text('itinerários recentes'),
-        backgroundColor: Theme.of(context).primaryColor,
+        iconTheme: new IconThemeData(color: Color(0xffffdd55)),
+        title: Text('itinerários recentes', style: TextStyle(color: Color(0xffffdd55))),
+        backgroundColor: Color(0xff006680),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Color(0xff006680),
         onPressed: ()async {
           String docIncomplete = await checkDocIncomplete();
+          // print(docIncomplete);
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -104,16 +130,10 @@ class _HomePageState extends State<HomePage> {
             )
           );
         },
-        child: Icon(Icons.add),
+        child: Icon(Icons.add, color: Color(0xffffdd55)),
       ),
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Theme.of(context).primaryColor, Colors.white],
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight
-          )
-        ),
+        color: color,
         height: MediaQuery.of(context).size.height,
         padding: EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -127,21 +147,21 @@ class _HomePageState extends State<HomePage> {
                 .orderBy('microsecondsSinceEpoch', descending: true)
                 .snapshots(),
                 builder: (_, snapshot) {
-                  Color color = Colors.white;
                   if ( snapshot.hasData ) {
                     List<Widget> ultimosItinerarios = [];
                     for (var doc in snapshot.data.documents) { 
                       ultimosItinerarios.add(
                         Card(
-                          color: Theme.of(context).primaryColor,
+                          elevation: 10.0,
+                          color: Color(0xff006680),
                           child: ListTile(
-                            leading: Icon(Icons.directions_car, color: color,),
-                            title: Text('${doc.data['horario_inicio']}', style: TextStyle(color: color)),
+                            leading: Icon(Icons.directions_car, color: Color(0xffffdd55)),
+                            title: Text('${doc.data['horario_inicio']}', style: TextStyle(color: Color(0xffffdd55))),
                             subtitle: Text(
-                              'destino: ${doc.data['destino']}\nveículo: ${doc.data['veiculo_nome']}\nkms rodados: ${doc.data['km_rodados']}',
-                              style: TextStyle(color: color)
+                              'DESTINO: ${doc.data['destino']}\nNOME: ${doc.data['nome']}',
+                              style: TextStyle(color: Color(0xffffdd55))
                             ),
-                            trailing: Icon(Icons.drag_handle, color: color,),
+                            trailing: Icon(Icons.list, color: Color(0xffffdd55)),
                             isThreeLine: true,
                           ),
                         )
@@ -150,9 +170,9 @@ class _HomePageState extends State<HomePage> {
                     return Column(
                       children: ultimosItinerarios
                     );
-                  }else { print('Sem registros recentes...'); }
+                  }
                   return Center(
-                    child: Text('Sem registros recentes...', style: TextStyle(fontSize: 24.0)),
+                    child: Text('sem registros recentes...', style: TextStyle(fontSize: 24.0)),
                   );
                 }
               ),

@@ -28,12 +28,13 @@ class _ItineraryPageState extends State<ItineraryPage> {
   TextEditingController kmFim = TextEditingController();
   TextEditingController kmInicio = TextEditingController();
   TextEditingController destino = TextEditingController();
+  TextEditingController infoAdicional = TextEditingController();
 
   bool showFinalPart = false;
 
   @override
   void initState() {
-    print(widget.docIncomplete);
+    // print(widget.docIncomplete);
     if(widget.docIncomplete != null) {
       showFinalPart = true;
     }
@@ -44,13 +45,7 @@ class _ItineraryPageState extends State<ItineraryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Theme.of(context).primaryColor, Colors.white],
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight
-          )
-        ),
+        color: Colors.white,
         padding: EdgeInsets.all(16.0),
         child: Center(
           child: SingleChildScrollView(
@@ -71,7 +66,7 @@ class _ItineraryPageState extends State<ItineraryPage> {
                             return null;
                           },
                           controller: nome,
-                          hintText: 'nome',
+                          hintText: 'nome completo',
                         ),
                         MyCustomTextField(
                           validator: (String v) {
@@ -112,9 +107,10 @@ class _ItineraryPageState extends State<ItineraryPage> {
                             return null;
                           },
                           controller: destino,
-                          hintText: 'destino',
+                          hintText: 'destino/finalidade',
                         ),
                         MyCustomButton(
+                          fontSize: 20.0,
                           onPressed: ()async {
                             if (_formKey.currentState.validate()) {
                               currentDocID = await database.insertData(
@@ -143,6 +139,17 @@ class _ItineraryPageState extends State<ItineraryPage> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         MyCustomTextField(
+                          keyboardType: TextInputType.text,
+                          validator: (String v) {
+                            if (v.isEmpty) {
+                              return 'Insira alguma info adicional ex: tudo ok!';
+                            }
+                            return null;
+                          },
+                          controller: infoAdicional,
+                          hintText: 'info adicional',
+                        ),
+                        MyCustomTextField(
                           keyboardType: TextInputType.number,
                           validator: (String v) {
                             if (v.isEmpty) {
@@ -154,9 +161,10 @@ class _ItineraryPageState extends State<ItineraryPage> {
                           hintText: 'km fim',
                         ),
                         MyCustomButton(
+                          fontSize: 20.0,
                           onPressed: () {
                             if(_formKey2.currentState.validate()) {
-                              database.updateData(kmFim.text, currentDocID ?? widget.docIncomplete);
+                              database.updateData(kmFim.text, currentDocID ?? widget.docIncomplete, infoAdicional.text);
                               Navigator.pop(context);
                             }
                           },

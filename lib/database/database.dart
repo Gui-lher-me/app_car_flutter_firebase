@@ -39,8 +39,10 @@ class Database {
     map['user_id'] = await Auth().getcurrentUserID();
     map['user_email'] = await Auth().getcurrentUserEmail();
 
-    map['latitude_inicio'] = await getLocation.getLatitude();
-    map['longitude_inicio'] = await getLocation.getLongitude();
+    // map['latitude_inicio'] = await getLocation.getLatitude();
+    // map['longitude_inicio'] = await getLocation.getLongitude();
+
+    map['lat_e_long_inicio'] = 'lat: ${await getLocation.getLatitude()} - long: ${await getLocation.getLongitude()}';
 
     map['km_final'] = null;
 
@@ -52,16 +54,16 @@ class Database {
 
   }
 
-  Future<void> updateData(String kmFim, String currentDocID)async{
+  Future<void> updateData(String kmFim, String currentDocID, String infoAdicional)async{
     dados.setKmFim = kmFim;
-    double kmRodados = double.parse(dados.getKmFim) - double.parse(dados.getKmInicio);
     db.document(currentDocID).updateData({
       'km_final': dados.getKmFim,
-      'doc_id': currentDocID,
+      // 'doc_id': currentDocID,
       'horario_fim': DateFormat("dd/MM/yyyy hh:mm a").format(DateTime.now()),
-      'latitude_fim': await getLocation.getLatitude(),
-      'longitude_fim': await getLocation.getLongitude(),
-      'km_rodados': kmRodados.toString()
+      // 'latitude_fim': await getLocation.getLatitude(),
+      // 'longitude_fim': await getLocation.getLongitude(),
+      'lat_e_long_fim': 'lat: ${await getLocation.getLatitude()} - long: ${await getLocation.getLongitude()}',
+      'info_adicional': infoAdicional
     });
   }
 

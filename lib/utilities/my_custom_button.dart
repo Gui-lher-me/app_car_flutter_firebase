@@ -4,10 +4,12 @@ class MyCustomButton extends StatelessWidget {
 
   final String text;
   final Function onPressed;
+  final double fontSize;
 
   MyCustomButton({
     this.text,
-    this.onPressed
+    this.onPressed,
+    this.fontSize
   });
 
   @override
@@ -15,16 +17,17 @@ class MyCustomButton extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(top: 16.0, bottom: 10.0),
       child: RaisedButton(
+        color: Color(0xff006680),
+        elevation: 6.0,
         onPressed: onPressed,
         child: Text(
           text,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Theme.of(context).primaryColor,
-            fontSize: 20.0
+            color: Color(0xffffdd55),
+            fontSize: fontSize
           ),
         ),
-        color: Colors.white,
         padding: EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 16.0),
       ),
     );
