@@ -6,6 +6,7 @@ class Dados {
   String _kmFim;
   String _kmInicio;
   String _destino;
+  String _infoAdicional;
 
   Dados();
 
@@ -32,5 +33,6 @@ class Dados {
   String get getDestino => _destino;
   set setDestino(String v) => this._destino = v;
 
-
+  String get getInfoAdicional => _infoAdicional;
+  set setInfoAdicional(String v) => this._infoAdicional = v;
 }

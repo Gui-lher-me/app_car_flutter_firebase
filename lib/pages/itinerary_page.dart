@@ -66,7 +66,7 @@ class _ItineraryPageState extends State<ItineraryPage> {
                             return null;
                           },
                           controller: nome,
-                          hintText: 'nome completo',
+                          hintText: 'nome/motorista',
                         ),
                         MyCustomTextField(
                           validator: (String v) {

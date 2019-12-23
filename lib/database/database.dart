@@ -56,6 +56,7 @@ class Database {
 
   Future<void> updateData(String kmFim, String currentDocID, String infoAdicional)async{
     dados.setKmFim = kmFim;
+    dados.setInfoAdicional = infoAdicional;
     db.document(currentDocID).updateData({
       'km_final': dados.getKmFim,
       // 'doc_id': currentDocID,
@@ -63,7 +64,7 @@ class Database {
       // 'latitude_fim': await getLocation.getLatitude(),
       // 'longitude_fim': await getLocation.getLongitude(),
       'lat_e_long_fim': 'lat: ${await getLocation.getLatitude()} - long: ${await getLocation.getLongitude()}',
-      'info_adicional': infoAdicional
+      'info_adicional': dados.getInfoAdicional
     });
   }
 

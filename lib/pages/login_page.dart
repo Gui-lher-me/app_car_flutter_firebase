@@ -63,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                   Padding(
                     padding: EdgeInsets.only(bottom: 12.0),
                     child: Image.asset(
-                      'assets/images/Aztek2.jpeg',
+                      'assets/images/logo.jpeg',
                       width: 200.0,
                       height: 150.0,
                     ),
