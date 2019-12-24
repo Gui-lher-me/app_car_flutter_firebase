@@ -144,6 +144,9 @@ class _ItineraryPageState extends State<ItineraryPage> {
                             if (v.isEmpty) {
                               return 'Insira alguma info adicional ex: tudo ok!';
                             }
+                            if (v.length > 30) {
+                              return 'texto até 30 characteres';
+                            }
                             return null;
                           },
                           controller: infoAdicional,

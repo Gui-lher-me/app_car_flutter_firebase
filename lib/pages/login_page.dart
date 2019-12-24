@@ -24,26 +24,26 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    
     super.initState();
-    getUserID();
+    loginOrHome();
   }
 
   Future<String> getUserID()async {
+    return await auth.getcurrentUserID();
+  }
+
+  Future<void> loginOrHome()async {
     try {
       if(await auth.getcurrentUserID() != null) {
+        String id = await getUserID();
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => HomePage()
+            builder: (context) => HomePage(userID: id)
           )
         );
-      }
-      return await auth.getcurrentUserID();
-    } catch(e) {
-      print('No user found');
-    }
-    return null;
+      }else {}
+    } catch(e) {}
   }
 
   @override

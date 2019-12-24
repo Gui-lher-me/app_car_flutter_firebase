@@ -17,8 +17,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  Color color = Colors.white;
-
   Database database = Database();
 
   Auth auth = Auth();
@@ -33,11 +31,12 @@ class _HomePageState extends State<HomePage> {
           // print(userEmail);
         });
       });
-    }catch(e) { debugPrint('Some error'); }
+    }catch(e) {}
   }
 
   @override
   void initState() {
+    
     getCurrentUserEmail();
     super.initState();
   }
@@ -133,7 +132,7 @@ class _HomePageState extends State<HomePage> {
         child: Icon(Icons.add, color: Color(0xffffdd55)),
       ),
       body: Container(
-        color: color,
+        color: Colors.white,
         height: MediaQuery.of(context).size.height,
         padding: EdgeInsets.all(16.0),
         child: SingleChildScrollView(
