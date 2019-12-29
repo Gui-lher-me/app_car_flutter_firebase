@@ -17,6 +17,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  Color blue = Color(0xff006680);
+  Color yellow = Color(0xffffdd55);
+
   Database database = Database();
 
   Auth auth = Auth();
@@ -76,106 +79,111 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            Container(
-              color: Color(0xff006680),
-              child: DrawerHeader(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Icon(Icons.person, size: 40.0, color: Color(0xffffdd55)),
-                    Container(
-                      padding: EdgeInsets.only(bottom: 10.0),
-                      margin: EdgeInsets.only(left: 10.0),
-                      child: Text(
-                        userEmail ?? 'carregando...',
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: Color(0xffffdd55)
+    return WillPopScope(
+      onWillPop: ()async {
+        return await Future.value();
+      },
+      child: Scaffold(
+        drawer: Drawer(
+          child: ListView(
+            children: <Widget>[
+              Container(
+                color: blue,
+                child: DrawerHeader(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Icon(Icons.person, size: 40.0, color: yellow),
+                      Container(
+                        padding: EdgeInsets.only(bottom: 10.0),
+                        margin: EdgeInsets.only(left: 10.0),
+                        child: Text(
+                          userEmail ?? 'carregando...',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: yellow
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            ListTile(
-              leading: Icon(Icons.exit_to_app),
-              title: Text('Sair...'),
-              onTap: () {
-                _showDialog(context);
-              },
-            ),
-          ],
-        ),
-      ),
-      appBar: AppBar(
-        iconTheme: new IconThemeData(color: Color(0xffffdd55)),
-        title: Text('itinerários recentes', style: TextStyle(color: Color(0xffffdd55))),
-        backgroundColor: Color(0xff006680),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xff006680),
-        onPressed: ()async {
-          String docIncomplete = await checkDocIncomplete();
-          // print(docIncomplete);
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ItineraryPage(docIncomplete: docIncomplete)
-            )
-          );
-        },
-        child: Icon(Icons.add, color: Color(0xffffdd55)),
-      ),
-      body: Container(
-        color: Colors.white,
-        height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              StreamBuilder<QuerySnapshot>(
-                stream: database.db
-                .where('user_id', isEqualTo: widget.userID)
-                .limit(4)
-                .orderBy('microsecondsSinceEpoch', descending: true)
-                .snapshots(),
-                builder: (_, snapshot) {
-                  if ( snapshot.hasData ) {
-                    List<Widget> ultimosItinerarios = [];
-                    for (var doc in snapshot.data.documents) { 
-                      ultimosItinerarios.add(
-                        Card(
-                          elevation: 10.0,
-                          color: Color(0xff006680),
-                          child: ListTile(
-                            leading: Icon(Icons.directions_car, color: Color(0xffffdd55)),
-                            title: Text('${doc.data['horario_inicio']}', style: TextStyle(color: Color(0xffffdd55))),
-                            subtitle: Text(
-                              'DESTINO: ${doc.data['destino']}\nNOME: ${doc.data['nome']}',
-                              style: TextStyle(color: Color(0xffffdd55))
-                            ),
-                            trailing: Icon(Icons.list, color: Color(0xffffdd55)),
-                            isThreeLine: true,
-                          ),
-                        )
-                      );
-                    }
-                    return Column(
-                      children: ultimosItinerarios
-                    );
-                  }
-                  return Center(
-                    child: Text('sem registros recentes...', style: TextStyle(fontSize: 24.0)),
-                  );
-                }
+              ListTile(
+                leading: Icon(Icons.exit_to_app),
+                title: Text('Sair...'),
+                onTap: () {
+                  _showDialog(context);
+                },
               ),
             ],
+          ),
+        ),
+        appBar: AppBar(
+          iconTheme: new IconThemeData(color: yellow),
+          title: Text('itinerários recentes', style: TextStyle(color: yellow)),
+          backgroundColor: blue,
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: blue,
+          onPressed: ()async {
+            String docIncomplete = await checkDocIncomplete();
+            // print(docIncomplete);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ItineraryPage(docIncomplete: docIncomplete)
+              )
+            );
+          },
+          child: Icon(Icons.add, color: yellow),
+        ),
+        body: Container(
+          color: Colors.white,
+          height: MediaQuery.of(context).size.height,
+          padding: EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                StreamBuilder<QuerySnapshot>(
+                  stream: database.db
+                  .where('user_id', isEqualTo: widget.userID)
+                  .limit(4)
+                  .orderBy('microsecondsSinceEpoch', descending: true)
+                  .snapshots(),
+                  builder: (_, snapshot) {
+                    if ( snapshot.hasData ) {
+                      List<Widget> ultimosItinerarios = [];
+                      for (var doc in snapshot.data.documents) { 
+                        ultimosItinerarios.add(
+                          Card(
+                            elevation: 10.0,
+                            color: blue,
+                            child: ListTile(
+                              leading: Icon(Icons.directions_car, color: yellow),
+                              title: Text('${doc.data['horario_inicio']}', style: TextStyle(color: yellow)),
+                              subtitle: Text(
+                                'DESTINO: ${doc.data['destino']}\nNOME: ${doc.data['nome']}',
+                                style: TextStyle(color: yellow)
+                              ),
+                              trailing: Icon(Icons.list, color: yellow),
+                              isThreeLine: true,
+                            ),
+                          )
+                        );
+                      }
+                      return Column(
+                        children: ultimosItinerarios
+                      );
+                    }
+                    return Center(
+                      child: Text('sem registros recentes...', style: TextStyle(fontSize: 24.0)),
+                    );
+                  }
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 class MyCustomButton extends StatelessWidget {
 
+  final Color blue = Color(0xff006680);
+  final Color yellow = Color(0xffffdd55);
+
   final String text;
   final Function onPressed;
   final double fontSize;
@@ -17,14 +20,14 @@ class MyCustomButton extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(top: 16.0, bottom: 10.0),
       child: RaisedButton(
-        color: Color(0xff006680),
+        color: blue,
         elevation: 6.0,
         onPressed: onPressed,
         child: Text(
           text,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Color(0xffffdd55),
+            color: yellow,
             fontSize: fontSize
           ),
         ),

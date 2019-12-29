@@ -11,14 +11,16 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
+  Color blue = Color(0xff006680);
+
   final _formKey = GlobalKey<FormState>();
 
   String userID;
 
   Auth auth = Auth();
 
-  TextEditingController _emailController = TextEditingController(text: 'test@test.com');
-  TextEditingController _passwordController = TextEditingController(text: '123456');
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   bool _loading = false;
 
@@ -76,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 24.0,
-                          color: Color(0xff006680),
+                          color: blue,
                           letterSpacing: 2.0
                         ),
                       ),
